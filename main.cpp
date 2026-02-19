@@ -185,7 +185,6 @@ void add_entry(string names[MAX_ENTRIES], int ages[MAX_ENTRIES], string& filenam
 
     int line_count = get_line_count(names, ages, filename);
     if (line_count < MAX_ENTRIES) {
-        // FIX: input validation
         cout << "\nEnter an age: ";
         if (!(cin >> ages[line_count + 1])) {
             cout << "The age entered was invalid." << endl;
@@ -236,7 +235,6 @@ void modify_entry(string names[MAX_ENTRIES], int ages[MAX_ENTRIES], string& file
         return;
     }
 
-    // FIX: input validation
     cout << "\nEnter an age: ";
     if (!(cin >> ages[line - 1])) {
         cout << "The age entered was invalid." << endl;
