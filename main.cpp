@@ -1,5 +1,6 @@
 #include <fstream>
 #include <iomanip>
+#include <ios>
 #include <limits>
 #include <iostream>
 #include <string>
@@ -186,11 +187,22 @@ void add_entry(string names[MAX_ENTRIES], int ages[MAX_ENTRIES], string& filenam
     if (line_count < MAX_ENTRIES) {
         // FIX: input validation
         cout << "\nEnter an age: ";
-        cin >> ages[line_count + 1];
+        if (!(cin >> ages[line_count + 1])) {
+            cout << "The age entered was invalid." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return;
+        }
+
         cin.ignore();
 
         cout << "Enter a full name: ";
-        getline(cin, names[line_count + 1]);
+        if (!(getline(cin, names[line_count + 1]))) {
+            cout << "The full name entered was invalid." << endl;
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            return;
+        }
     } else {
         cout << "You can only have a maximum of 50 students." << endl;
         return;
@@ -226,11 +238,22 @@ void modify_entry(string names[MAX_ENTRIES], int ages[MAX_ENTRIES], string& file
 
     // FIX: input validation
     cout << "\nEnter an age: ";
-    cin >> ages[line - 1];
+    if (!(cin >> ages[line - 1])) {
+        cout << "The age entered was invalid." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return;
+    }
+
     cin.ignore();
 
     cout << "Enter a full name: ";
-    getline(cin, names[line - 1]);
+    if (!(getline(cin, names[line - 1]))) {
+        cout << "The full name entered was invalid." << endl;
+        cin.clear();
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        return;
+    }
 
     ofstream out_file(filename);
     for (int i = 0; i < line_count; i++) {
